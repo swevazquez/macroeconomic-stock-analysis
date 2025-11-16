@@ -1,0 +1,6 @@
+Method,N_Outliers,Outlier_Pct
+IQR Method,4,3.361344537815126
+Z-Score Method,4,3.361344537815126
+Isolation Forest,12,10.084033613445378
+One-Class SVM,14,11.76470588235294
+Local Outlier Factor,12,10.084033613445378

@@ -1,8 +1,20 @@
 import pandas as pd
+import os
 from mlxtend.frequent_patterns import apriori, fpgrowth, association_rules
 
+# Get the directory where this script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(script_dir)
+
 # Load dataset
-df = pd.read_csv("../data/processed/S&P500_merged.csv", parse_dates=["Date"])
+data_path = os.path.join(project_root, "data", "processed", "S&P500_merged.csv")
+
+if not os.path.exists(data_path):
+    print(f"❌ Error: Merged data file not found at {data_path}")
+    print("   Please run 'python src/integrate_data.py' first to create merged data.")
+    exit(1)
+
+df = pd.read_csv(data_path, parse_dates=["Date"])
 
 # --- Step 1: Discretize continuous variables ---
 df_bin = pd.DataFrame()
@@ -23,9 +35,12 @@ print(df_bool.mean())
 frequent_apriori = apriori(df_bool, min_support=0.2, use_colnames=True)
 print(f"\n🔎 Apriori found {len(frequent_apriori)} frequent itemsets")
 
+outputs_dir = os.path.join(project_root, "outputs")
+os.makedirs(outputs_dir, exist_ok=True)
+
 if not frequent_apriori.empty:
     rules_apriori = association_rules(frequent_apriori, metric="lift", min_threshold=1)
-    rules_apriori.to_csv("../outputs/rules_apriori.csv", index=False)
+    rules_apriori.to_csv(os.path.join(outputs_dir, "rules_apriori.csv"), index=False)
     print(f"✅ Apriori generated {len(rules_apriori)} rules")
 else:
     print("❌ No frequent itemsets found with Apriori")
@@ -36,7 +51,7 @@ print(f"\n🔎 FP-Growth found {len(frequent_fpgrowth)} frequent itemsets")
 
 if not frequent_fpgrowth.empty:
     rules_fpgrowth = association_rules(frequent_fpgrowth, metric="lift", min_threshold=1)
-    rules_fpgrowth.to_csv("../outputs/rules_fpgrowth.csv", index=False)
+    rules_fpgrowth.to_csv(os.path.join(outputs_dir, "rules_fpgrowth.csv"), index=False)
     print(f"✅ FP-Growth generated {len(rules_fpgrowth)} rules")
 else:
     print("❌ No frequent itemsets found with FP-Growth")
