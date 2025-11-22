@@ -1,0 +1,5 @@
+Method,Dimensions,Samples
+Original,9,119
+PCA,2,119
+t-SNE,2,119
+UMAP,2,119

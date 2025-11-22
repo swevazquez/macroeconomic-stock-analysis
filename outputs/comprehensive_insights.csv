@@ -1,0 +1,10 @@
+Category,Finding,Details
+Clustering,Best method: K-Means,"Silhouette: 0.5575, Clusters: 2"
+Dimensionality Reduction,PCA Variance Explained,2D PCA explains 93.63% of variance
+Outlier Detection,Outlier Prevalence,Average 12 outliers (10.08%)
+Integration,Outlier Removal Impact,Silhouette: 0.5575 → 0.5686 (+0.0111)
+Strategic Insight,Market Regimes,"Clusters likely represent different market regimes (bull markets, bear markets, high volatility periods)"
+Strategic Insight,Macroeconomic Sensitivity,Dimensionality reduction reveals which macro indicators drive most variance in stock performance
+Strategic Insight,Risk Management,Outliers represent extreme events that should be considered in risk models and portfolio construction
+Strategic Insight,Data Quality,Systematic outlier patterns may indicate data quality issues that need investigation
+Strategic Insight,Predictive Modeling,Clusters can be used as features in predictive models to capture regime-dependent relationships
